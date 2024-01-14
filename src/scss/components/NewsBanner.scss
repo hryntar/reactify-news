@@ -1,0 +1,25 @@
+.newsBanner { 
+   display: grid;
+   gap: toRem(15);
+   max-width: toRem(750);
+   padding: toRem(24) toRem(0) ;
+
+   &__img-ibg{
+      padding-bottom: toRem(450);
+      
+   }
+   &__body {
+      display: grid;
+      gap: toRem(10);
+   }
+
+   &__title {
+      font-size: toRem(28);
+      line-height: math.div(28 , 24);
+      font-weight: 700; 
+   }
+
+   &__info {
+      color: #6C7072;
+   }
+}
