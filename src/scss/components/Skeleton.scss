@@ -1,0 +1,32 @@
+.list {
+   display: grid;
+   gap: toRem(12);
+}
+
+.banner {
+   width: toRem(750); 
+   padding-top: toRem(450);
+   margin-bottom: toRem(100);
+   position: relative;
+   list-style:none;
+}
+
+.item {
+   width: toRem(750);
+   height: toRem(80); 
+}
+
+.banner, .item {
+   background: linear-gradient(-90deg, #f0f0f0 0%, #cdcdcd 50%, #f0f0f0 100%);
+   background-size: 400% 400%; 
+   animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+   0% {
+      background-position: 0% 0%;
+   }
+   100% {
+      background-position: -135% 0%;
+   }
+}
