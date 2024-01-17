@@ -34,3 +34,12 @@
    }
 }
 
+.image-plug {
+   max-width: toRem(150);
+   width: 100%;
+   max-height: toRem(150);
+   min-height: toRem(100);
+   height: 100%;
+   background-color: #cdcdcd;
+}
+
