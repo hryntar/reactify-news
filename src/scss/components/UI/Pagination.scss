@@ -1,0 +1,30 @@
+.pagination {
+   &__container {
+      display: flex;
+      justify-content: center;
+      padding: toRem(20) toRem(0) toRem(50);
+   }
+
+   &__button {
+      font-size: toRem(20);
+      cursor: pointer;
+      &:hover {
+         text-decoration: underline;
+      }
+      &._current {
+         text-decoration: underline;
+      }
+   }
+
+   &__list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: toRem(25);
+      padding: toRem(0) toRem(15) ;
+   }
+
+   &__item {
+   }
+}
