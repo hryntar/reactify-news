@@ -6,6 +6,8 @@ import NewsList from "../components/NewsList";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 import Categories from "../components/Categories";
+import Search from "../components/Search";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Main = () => {
    const [news, setNews] = useState<NewsType[]>();
@@ -13,16 +15,20 @@ const Main = () => {
    const [isLoading, setIsLoading] = useState(true);
    const [currentPage, setCurrentPage] = useState(1);
    const [currentCategory, setCurrentCategory] = useState(0);
+   const [keywords, setKeywords] = useState("");
    const totalPages: number = 10;
    const pageSize: number = 10;
-   
-   const fetchNews = async (currentPage: number, currentCategory: number, categories: string[]) => { 
+
+   const debouncedKeywords = useDebounce(keywords, 1000);
+
+   const fetchNews = async (currentPage: number, currentCategory: number, categories: string[], debouncedKeywords: string) => {
       try {
          setIsLoading(true);
          const data: { status: string; news: NewsType[]; page: number } = await getNews({
             page_number: currentPage,
             page_size: pageSize,
-            category: currentCategory === 0 ? undefined : categories[currentCategory],
+            category: currentCategory === 0 ? "all" : categories[currentCategory],
+            keywords: debouncedKeywords,
          });
          console.log(data.news);
          setNews(data.news);
@@ -32,7 +38,7 @@ const Main = () => {
       }
    };
 
-   const fetchCategories = async () => { 
+   const fetchCategories = async () => {
       try {
          const data: { categories: string[]; description: string; status: string } = await getCategories();
          console.log(data.categories);
@@ -44,20 +50,23 @@ const Main = () => {
 
    useEffect(() => {
       fetchCategories();
-   }, [])
+   }, []);
 
-   useEffect(() => { 
-      fetchNews(currentPage, currentCategory, categories ? categories : []);
-   }, [currentPage, currentCategory, categories]);
+   useEffect(() => {
+      fetchNews(currentPage, currentCategory, categories ? categories : [], debouncedKeywords);
+   }, [currentPage, currentCategory, categories, debouncedKeywords]);
 
    return (
       <main className="main">
          <div className="main__container">
-            {categories?.length ? <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} /> : null} 
-            {news?.length && !isLoading ? <NewsBanner news={news[0]} /> : <Skeleton count={1} type="banner"/>} 
-            {news?.length && !isLoading ? <NewsList news={news}/> : <Skeleton count={10} type="item"/>}
+            {categories?.length ? (
+               <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
+            ) : null}
+            <Search keywords={keywords} setKeywords={setKeywords} />
+            {news?.length && !isLoading ? <NewsBanner news={news[0]} /> : <Skeleton count={1} type="banner" />}
+            {news?.length && !isLoading ? <NewsList news={news} /> : <Skeleton count={10} type="item" />}
          </div>
-         <Pagination totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+         <Pagination totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </main>
    );
 };
