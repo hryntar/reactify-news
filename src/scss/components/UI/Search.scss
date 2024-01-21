@@ -1,0 +1,8 @@
+.search {
+
+   &__input {
+      padding: toRem(10) toRem(16);
+      border: 1px solid #ccc;
+      border-radius: toRem(12);
+   }
+}
