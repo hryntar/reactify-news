@@ -8,4 +8,4 @@ export type NewsType = {
    description: string,
    language: string,
    url: string
-}
+} | null;

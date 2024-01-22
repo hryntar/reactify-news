@@ -1,8 +1,10 @@
 import { FC } from "react";
+import './Pagination.scss'
+
 
 interface IProps {
    totalPages: number;
-   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+   setCurrentPage: (pageNumber: number) => void;
    currentPage: number;
 }
 

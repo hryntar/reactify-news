@@ -1,4 +1,5 @@
-import { formatDate } from "../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
+import './Header.scss'
 
 const Header = () => {
    return (
