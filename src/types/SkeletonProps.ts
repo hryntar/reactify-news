@@ -1,4 +1,6 @@
+import { SkeletonTypes } from "./SkeletonType";
+
 export type SkeletonProps = {
    count?: number,
-   type: "banner" | "item",
+   type: SkeletonTypes,
 }

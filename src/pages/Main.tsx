@@ -3,11 +3,11 @@ import NewsBanner from "../components/NewsBanner";
 import { getCategories, getNews } from "../api/apiNews";
 import { NewsType } from "../types/NewsType";
 import NewsList from "../components/NewsList";
-import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
-import Categories from "../components/Categories";
+import Categories from "../components/Categories/Categories";
 import Search from "../components/Search";
 import { useDebounce } from "../hooks/useDebounce";
+import { PAGE_SIZE, TOTAL_PAGES } from "../constants/constants";
 
 const Main = () => {
    const [news, setNews] = useState<NewsType[]>();
@@ -16,8 +16,7 @@ const Main = () => {
    const [currentPage, setCurrentPage] = useState(1);
    const [currentCategory, setCurrentCategory] = useState(0);
    const [keywords, setKeywords] = useState("");
-   const totalPages: number = 10;
-   const pageSize: number = 10;
+  
 
    const debouncedKeywords = useDebounce(keywords, 1000);
 
@@ -26,7 +25,7 @@ const Main = () => {
          setIsLoading(true);
          const data: { status: string; news: NewsType[]; page: number } = await getNews({
             page_number: currentPage,
-            page_size: pageSize,
+            page_size: PAGE_SIZE,
             category: currentCategory === 0 ? "all" : categories[currentCategory],
             keywords: debouncedKeywords,
          });
@@ -63,10 +62,10 @@ const Main = () => {
                <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
             ) : null}
             <Search keywords={keywords} setKeywords={setKeywords} />
-            {news?.length && !isLoading ? <NewsBanner news={news[0]} /> : <Skeleton count={1} type="banner" />}
-            {news?.length && !isLoading ? <NewsList news={news} /> : <Skeleton count={10} type="item" />}
+            <NewsBanner isLoading={isLoading} news={news?.length && news.length > 0 ? news[0] : null} />
+            <NewsList isLoading={isLoading} news={news?.length && news.length > 0 ? news : null} /> 
          </div>
-         <Pagination totalPages={totalPages} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+         <Pagination totalPages={TOTAL_PAGES} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </main>
    );
 };
