@@ -1,3 +1,6 @@
+@use "sass:math";
+@import "/src/scss/base/mixins.scss";
+
 .newsBanner { 
    display: grid;
    gap: toRem(15);

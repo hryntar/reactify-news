@@ -1,3 +1,6 @@
+@use "sass:math";
+@import "/src/scss/base/mixins.scss";
+
 .search {
 
    &__input {

@@ -1,3 +1,6 @@
+@use "sass:math";
+@import "/src/scss/base/mixins.scss";
+
 .newsList {
    display: grid;
    gap: toRem(24);
