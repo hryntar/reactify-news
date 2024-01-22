@@ -12,10 +12,10 @@ const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) =>
    return (
       <div className="categories">
          <ul className="categories__list">
-            {categories.map((category, idx) => (
+            {categories.map((category) => (
                <li
                   onClick={() => setCategory(category)}
-                  className={`categories__item ${categories[idx] === currentCategory ? `_active` : null}`}
+                  className={`categories__item ${category === currentCategory ? `_active` : null}`}
                   key={category}
                >
                   {category}
