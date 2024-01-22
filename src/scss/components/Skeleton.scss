@@ -1,6 +1,6 @@
 .list {
    display: grid;
-   gap: toRem(12);
+   gap: toRem(20);
 }
 
 .banner {
@@ -13,7 +13,7 @@
 
 .item {
    width: toRem(750);
-   height: toRem(80); 
+   height: toRem(110); 
 }
 
 .banner, .item {
