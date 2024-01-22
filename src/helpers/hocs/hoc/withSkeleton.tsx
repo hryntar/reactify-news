@@ -1,6 +1,6 @@
 import { FC, ComponentType } from "react";
 import { SkeletonTypes } from "../../../types/SkeletonType";
-import Skeleton from "../../../components/Skeleton"; 
+import Skeleton from "../../../components/Skeleton/Skeleton"; 
 
 export default function withSkeleton<P extends object>(Component: ComponentType<P>, type: SkeletonTypes, count: number): FC<P & {isLoading: boolean}> {
    return function ({ isLoading, ...props }: {isLoading: boolean} & P) {

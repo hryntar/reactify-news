@@ -151,12 +151,3 @@ body {
 @import "base"; 
 
 // Підключення стилів окремих компонентів
-@import "./components/pages/home";
-@import "./components/header";
-
-@import "./components/NewsBanner";
-@import "./components/NewsList";
-@import "./components/Skeleton";
-@import "./components/UI/Pagination";
-@import "../components/Categories/Categories.scss";
-@import "./components/UI/Search";

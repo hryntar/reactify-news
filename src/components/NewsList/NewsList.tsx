@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { NewsType } from "../types/NewsType";
-import { formatTimeAgo } from "../utils/formatTimeAgo";
-import withSkeleton from "../helpers/hocs/hoc/withSkeleton";
-import { PAGE_SIZE } from "../constants/constants";
+import { NewsType } from "../../types/NewsType";
+import { formatTimeAgo } from "../../utils/formatTimeAgo";
+import withSkeleton from "../../helpers/hocs/hoc/withSkeleton";
+import { PAGE_SIZE } from "../../constants/constants";
+import "./NewsList.scss"
 
 const NewsList: FC<{ news: NewsType[] | null }> = ({ news }) => {
    return (

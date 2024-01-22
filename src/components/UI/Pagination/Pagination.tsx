@@ -1,4 +1,6 @@
 import { FC } from "react";
+import './Pagination.scss'
+
 
 interface IProps {
    totalPages: number;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import NewsBanner from "../components/NewsBanner";
+import NewsBanner from "../components/NewsBanner/NewsBanner";
 import { getCategories, getNews } from "../api/apiNews";
 import { NewsType } from "../types/NewsType";
-import NewsList from "../components/NewsList";
-import Pagination from "../components/Pagination";
+import NewsList from "../components/NewsList/NewsList";
+import Pagination from "../components/UI/Pagination/Pagination";
 import Categories from "../components/Categories/Categories";
-import Search from "../components/Search";
+import Search from "../components/UI/Search/Search";
 import { useDebounce } from "../hooks/useDebounce";
 import { PAGE_SIZE, TOTAL_PAGES } from "../constants/constants";
 
@@ -62,8 +62,8 @@ const Main = () => {
                <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
             ) : null}
             <Search keywords={keywords} setKeywords={setKeywords} />
-            <NewsBanner isLoading={isLoading} news={news?.length && news.length > 0 ? news[0] : null} />
-            <NewsList isLoading={isLoading} news={news?.length && news.length > 0 ? news : null} /> 
+            <NewsBanner isLoading={isLoading} news={news && news.length > 0 ? news[0] : null} />
+            <NewsList isLoading={isLoading} news={news && news.length > 0 ? news : null} /> 
          </div>
          <Pagination totalPages={TOTAL_PAGES} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </main>

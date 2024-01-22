@@ -1,4 +1,5 @@
 import { FC } from "react"
+import "./Search.scss"
 
 const Search: FC<{keywords: string, setKeywords: React.Dispatch<React.SetStateAction<string>>}> = ({keywords, setKeywords}) => {
   return (

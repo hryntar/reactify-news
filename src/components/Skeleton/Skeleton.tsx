@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { SkeletonProps } from "../types/SkeletonProps";
+import { SkeletonProps } from "../../types/SkeletonProps";
+import "./Skeleton.scss"
 
 const Skeleton: FC<SkeletonProps> = ({ count = 1, type }) => {
    return (

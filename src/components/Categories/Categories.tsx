@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./Categories.scss"
 
 interface IProps {
    categories: string[];
