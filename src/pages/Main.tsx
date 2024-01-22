@@ -9,33 +9,49 @@ import { useDebounce } from "../hooks/useDebounce";
 import { PAGE_SIZE, TOTAL_PAGES } from "../constants/constants";
 import { useFetch } from "../hooks/useFetch";
 
-const Main = () => { 
-   const [currentPage, setCurrentPage] = useState(1);
-   const [currentCategory, setCurrentCategory] = useState(0);
-   const [keywords, setKeywords] = useState("");
+const Main = () => {
+   const [filters, setFilters] = useState({
+      page_number: 1,
+      page_size: PAGE_SIZE,
+      category: "all",
+      keywords: "",
+   });
 
-   const debouncedKeywords = useDebounce(keywords, 1000);
+   const changeFilter = (key: string, value: number | string) => {
+      setFilters((prev) => ({
+         ...prev,
+         [key]: value,
+      }));
+   };
 
-   const { data: dataCategories} = useFetch<CategoriesResponse>(getCategories);
+   const debouncedKeywords = useDebounce(filters.keywords, 1000);
+
+   const { data: dataCategories } = useFetch<CategoriesResponse>(getCategories);
 
    const { data, isLoading } = useFetch<NewsResponse>(getNews, {
-      page_number: currentPage,
-      page_size: PAGE_SIZE,
-      category: currentCategory === 0 ? "all" : dataCategories ? dataCategories?.categories[currentCategory - 1] : '',
+      ...filters,
       keywords: debouncedKeywords,
-   }); 
+   });
 
    return (
       <main className="main">
          <div className="main__container">
             {dataCategories ? (
-               <Categories categories={["all", ...dataCategories.categories]} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} />
+               <Categories
+                  categories={["all", ...dataCategories.categories]}
+                  currentCategory={filters.category}
+                  setCategory={(category: string) => changeFilter("category", category)}
+               />
             ) : null}
-            <Search keywords={keywords} setKeywords={setKeywords} />
+            <Search keywords={filters.keywords} setKeywords={(keywords: string) => changeFilter("keywords", keywords)} />
             <NewsBanner isLoading={isLoading} news={data && data.news.length > 0 ? data.news[0] : null} />
             <NewsList isLoading={isLoading} news={data && data.news.length > 0 ? data.news : null} />
          </div>
-         <Pagination totalPages={TOTAL_PAGES} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+         <Pagination
+            totalPages={TOTAL_PAGES}
+            setCurrentPage={(pageNumber: number) => changeFilter("page_number", pageNumber)}
+            currentPage={filters.page_number}
+         />
       </main>
    );
 };

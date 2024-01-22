@@ -1,18 +1,23 @@
 import { FC } from "react";
-import "./Categories.scss"
+import "./Categories.scss";
 
 interface IProps {
    categories: string[];
-   currentCategory: number;
-   setCurrentCategory: React.Dispatch<React.SetStateAction<number>>;
+   currentCategory: string;
+   setCategory: (category: string) => void;
 }
 
-const Categories: FC<IProps> = ({ categories, currentCategory, setCurrentCategory }) => {
+const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) => { 
+
    return (
       <div className="categories">
          <ul className="categories__list">
             {categories.map((category, idx) => (
-               <li onClick={() => setCurrentCategory(idx)} className={`categories__item ${currentCategory === idx ? `_active` : null}`} key={idx}>
+               <li
+                  onClick={() => setCategory(category)}
+                  className={`categories__item ${categories[idx] === currentCategory ? `_active` : null}`}
+                  key={category}
+               >
                   {category}
                </li>
             ))}
