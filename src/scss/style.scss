@@ -91,7 +91,8 @@ body {
       grid-template-columns: 1fr 0.8fr;
       column-gap: toRem(30);
       div {
-         max-width: toRem(500); 
+         box-sizing: border-box;
+         overflow: hidden;
       }
    }
    // Фікс для слайдерів
