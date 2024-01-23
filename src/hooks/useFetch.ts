@@ -9,8 +9,10 @@ export const useFetch = <T>(
    const [isLoading, setIsLoading] = useState(true);
    const [error, setError] = useState<null | unknown>(null);
 
-   const stringParams: string = params ? new URLSearchParams(String(params)).toString() : "";
-
+   const stringParams: string = params
+   ? new URLSearchParams(Object.fromEntries(Object.entries(params).map(([key, value]) => [key, String(value)]))).toString()
+   : "";
+   
    useEffect(() => {
       (async () => {
          try {
