@@ -40,7 +40,7 @@ $minWidth: 320;
 // Ширина полотна (макету)
 $maxWidth: 1920;
 // Ширина обмежуючого контейнера (0 = немає обмеження)
-$maxWidthContainer: 1240;
+$maxWidthContainer: 0;
 // Загальний відступ у контейнера
 // (30 = по 15px ліворуч і праворуч, 0 = немає відступу)
 $containerPadding: 30;
@@ -86,8 +86,13 @@ body {
       overflow: clip;
    }
    // Притискаємо footer
-   > main {
-      flex: 1 1 auto;
+   .main__container {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      column-gap: toRem(30);
+      div {
+         max-width: toRem(500); 
+      }
    }
    // Фікс для слайдерів
    > * {

@@ -7,21 +7,18 @@ interface IProps {
    setCategory: (category: string) => void;
 }
 
-const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) => { 
-
+const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) => {
    return (
       <div className="categories">
-         <ul className="categories__list">
-            {categories.map((category) => (
-               <li
-                  onClick={() => setCategory(category)}
-                  className={`categories__item ${category === currentCategory ? `_active` : null}`}
-                  key={category}
-               >
-                  {category}
-               </li>
-            ))}
-         </ul>
+         {categories.map((category) => (
+            <button
+               onClick={() => setCategory(category)}
+               className={`categories__item ${category === currentCategory ? `_active` : ''}`}
+               key={category}
+            >
+               {category}
+            </button>
+         ))}
       </div>
    );
 };
