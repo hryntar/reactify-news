@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
 import { NewsType } from "../../types/NewsType";
-import withSkeleton from "../../helpers/hocs/hoc/withSkeleton";
 import "./NewsBanner.scss";
 
 const NewsBanner: FC<{ news: NewsType }> = ({ news }) => {
@@ -13,17 +12,15 @@ const NewsBanner: FC<{ news: NewsType }> = ({ news }) => {
                   <img src={news.image} alt="News image" />
                </div>
                <div className="newsBanner__body">
-                  <h3 className="newsBanner__title">{news.title}</h3>
+                  <h3 className="newsBanner__title">{news.title.substring(0, 70)}...</h3>
                   <p className="newsBanner__info">
-                     {formatTimeAgo(news.published)} · by {news.author}
+                     {formatTimeAgo(news.published)} · by {news.author.substring(0, 20)}
                   </p>
                </div>
             </div>
          ) : null}
       </>
    );
-};
+}; 
 
-const NewsBannerWithSkeleton = withSkeleton(NewsBanner, "banner", 1);
-
-export default NewsBannerWithSkeleton;
+export default NewsBanner;
