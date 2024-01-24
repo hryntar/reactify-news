@@ -90,6 +90,9 @@ body {
       display: grid;
       grid-template-columns: 1fr 0.8fr;
       column-gap: toRem(30);
+      @media (max-width: em(1017)){
+         grid-template-columns: 1fr;
+      }
       div {
          box-sizing: border-box;
          overflow: hidden;

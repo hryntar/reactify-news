@@ -9,6 +9,8 @@
    overflow: hidden;
    width: 100%;
    gap: toRem(12); 
-   overflow-y: auto;
-   max-height: toRem(1500);
+   @media (min-width: em(1017)){
+      overflow-y: auto;
+      max-height: toRem(1500); 
+   }
 }
