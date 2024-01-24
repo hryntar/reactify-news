@@ -29,7 +29,7 @@ const Main = () => {
    return (
       <main className="main">
          <div className="main__container">
-            <LatestNews isLoading={isLoading} banners={data && data.news.length > 0 ? data.news : null} />
+            <LatestNews />
             <div>
                {dataCategories ? (
                   <Categories
