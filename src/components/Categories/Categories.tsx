@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, forwardRef } from "react";
 import "./Categories.scss";
 
 interface IProps {
@@ -7,9 +7,9 @@ interface IProps {
    setCategory: (category: string) => void;
 }
 
-const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) => {
+const Categories: FC<IProps> = forwardRef<HTMLDivElement, IProps>(({ categories, setCategory, currentCategory }, ref) => {
    return (
-      <div className="categories">
+      <div ref={ref} className="categories">
          {categories.map((category) => (
             <button
                onClick={() => setCategory(category)}
@@ -21,6 +21,8 @@ const Categories: FC<IProps> = ({ categories, setCategory, currentCategory }) =>
          ))}
       </div>
    );
-};
+});
+
+Categories.displayName = "Categories";
 
 export default Categories;
