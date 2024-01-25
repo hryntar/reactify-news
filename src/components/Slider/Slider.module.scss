@@ -1,0 +1,16 @@
+@use "sass:math";
+@import "/src/scss/base/mixins.scss";
+//====================================================================================================
+
+.slider { 
+   display: flex;
+   width: 100%;
+   align-items: center;
+   gap: toRem(8);
+  
+} 
+.arrow {
+   border: none;
+   background-color: #fff;
+   cursor: pointer;
+}
