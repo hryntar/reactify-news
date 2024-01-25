@@ -8,6 +8,7 @@ import { PAGE_SIZE, TOTAL_PAGES } from "../constants/constants";
 import { useFetch } from "../hooks/useFetch";
 import { useFilters } from "../hooks/useFilters";
 import LatestNews from "../components/LatestNews/LatestNews";
+import Slider from "../components/Slider/Slider";
 
 const Main = () => {
    const { filters, changeFilter } = useFilters({
@@ -32,11 +33,13 @@ const Main = () => {
             <LatestNews />
             <div>
                {dataCategories ? (
-                  <Categories
-                     categories={["all", ...dataCategories.categories]}
-                     currentCategory={filters.category}
-                     setCategory={(category: string) => changeFilter("category", category)}
-                  />
+                  <Slider>
+                     <Categories
+                        categories={["all", ...dataCategories.categories]}
+                        currentCategory={filters.category}
+                        setCategory={(category: string) => changeFilter("category", category)}
+                     />
+                  </Slider>
                ) : null}
                <Search keywords={filters.keywords} setKeywords={(keywords: string) => changeFilter("keywords", keywords)} />
                <Pagination
