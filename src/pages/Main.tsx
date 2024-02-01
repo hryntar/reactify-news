@@ -1,4 +1,4 @@
-import { CategoriesResponse, NewsResponse, getCategories, getNews } from "../api/apiNews";
+import { getCategories, getNews } from "../api/apiNews";
 import NewsList from "../components/NewsList/NewsList";
 import Pagination from "../components/UI/Pagination/Pagination";
 import Categories from "../components/Categories/Categories";
@@ -9,20 +9,21 @@ import { useFetch } from "../hooks/useFetch";
 import { useFilters } from "../hooks/useFilters";
 import LatestNews from "../components/LatestNews/LatestNews";
 import Slider from "../components/Slider/Slider";
+import { NewsApiResponse, ParamsType } from "../interfaces";
 
 const Main = () => {
    const { filters, changeFilter } = useFilters({
       page_number: 1,
       page_size: PAGE_SIZE,
-      category: "all",
+      category: null,
       keywords: "",
    });
 
    const debouncedKeywords = useDebounce(filters.keywords, 1000);
 
-   const { data: dataCategories } = useFetch<CategoriesResponse>(getCategories);
+   const { data: dataCategories } = useFetch(getCategories);
 
-   const { data, isLoading } = useFetch<NewsResponse>(getNews, {
+   const { data, isLoading } = useFetch<NewsApiResponse, ParamsType>(getNews, {
       ...filters,
       keywords: debouncedKeywords,
    });
@@ -36,7 +37,7 @@ const Main = () => {
                   <Slider>
                      <Categories
                         categories={["all", ...dataCategories.categories]}
-                        currentCategory={filters.category}
+                        currentCategory={filters.category ? filters.category : "all"}
                         setCategory={(category: string) => changeFilter("category", category)}
                      />
                   </Slider>
@@ -47,7 +48,7 @@ const Main = () => {
                   setCurrentPage={(pageNumber: number) => changeFilter("page_number", pageNumber)}
                   currentPage={filters.page_number}
                />
-               <NewsList isLoading={isLoading} news={data && data.news.length > 0 ? data.news : null} />
+               <NewsList isLoading={isLoading} news={data?.news} />
                <Pagination
                   totalPages={TOTAL_PAGES}
                   setCurrentPage={(pageNumber: number) => changeFilter("page_number", pageNumber)}

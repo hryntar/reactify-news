@@ -12,7 +12,7 @@ const Slider: FC<{ children: ReactElement }> = ({ children }) => {
             scrollAmount += 20;
             if (scrollAmount >= 180) clearInterval(slideTimer);
          }
-      }, 25);
+     }, 25);
    };
    const scrollRight = () => {
       let scrollAmount = 0;

@@ -1,10 +1,13 @@
-import { FC } from "react";
-import { NewsType } from "../../types/NewsType";
 import withSkeleton from "../../helpers/hocs/hoc/withSkeleton";
 import styles from "./styles.module.scss";
 import NewsBanner from "../NewsBanner/NewsBanner";
+import { INews } from "../../interfaces";
 
-const BannersList: FC<{banners: NewsType[] | null}> = ({ banners }) => {
+interface Props {
+   banners?: INews[] | null;
+}
+
+const BannersList = ({ banners }: Props) => {
    return (
       <ul className={styles.banners}>
          {banners?.map((banner) => <NewsBanner key={banner?.id} news={banner} /> ) }

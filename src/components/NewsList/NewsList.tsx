@@ -1,11 +1,14 @@
-import { FC } from "react";
-import { NewsType } from "../../types/NewsType";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
 import withSkeleton from "../../helpers/hocs/hoc/withSkeleton";
 import { PAGE_SIZE } from "../../constants/constants";
 import "./NewsList.scss"
+import { INews } from "../../interfaces";
 
-const NewsList: FC<{ news: NewsType[] | null }> = ({ news }) => {
+interface Props {
+   news?: INews[];
+}
+
+const NewsList = ({ news }: Props) => {
    return (
       <ul className="newsList">
          {news ? news.map((article) => (

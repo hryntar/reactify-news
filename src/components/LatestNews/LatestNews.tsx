@@ -2,14 +2,15 @@ import { FC } from "react";
 import styles from "./styles.module.scss";
 import BannersList from "../BannersList/BannersList";
 import { useFetch } from "../../hooks/useFetch";
-import { NewsResponse, getLatestNews } from "../../api/apiNews";
+import { getLatestNews } from "../../api/apiNews";
+import { NewsApiResponse } from "../../interfaces";
 
 const LatestNews: FC = () => {
-   const { data, isLoading } = useFetch<NewsResponse>(getLatestNews);
+   const { data, isLoading } = useFetch<NewsApiResponse, null>(getLatestNews);
    
-   return (
+   return ( 
       <section className={styles.section}>
-         <BannersList banners={data && data.news.length > 0 ? data.news : null} isLoading={isLoading}/> 
+         <BannersList banners={data && data.news} isLoading={isLoading}/> 
       </section>
    );
 };

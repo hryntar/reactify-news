@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { IGetNews } from "../api/apiNews";
+import { IFilters } from "../interfaces";
 
-export const useFilters = (initialFilters: IGetNews) => {
-   const [filters, setFilters] = useState(initialFilters);
+export const useFilters = (initialFilters: IFilters) => {
+   const [filters, setFilters] = useState<IFilters>(initialFilters);
 
-   const changeFilter = (key: string, value: number | string) => {
+   const changeFilter = (key: string, value: number | string | null) => {
       setFilters((prev) => ({
          ...prev,
          [key]: value,
