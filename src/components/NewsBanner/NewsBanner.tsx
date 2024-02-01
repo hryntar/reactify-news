@@ -1,9 +1,12 @@
-import { FC } from "react";
 import { formatTimeAgo } from "../../utils/formatTimeAgo";
-import { NewsType } from "../../types/NewsType";
 import "./NewsBanner.scss";
+import { INews } from "../../interfaces";
 
-const NewsBanner: FC<{ news: NewsType }> = ({ news }) => {
+interface Props {
+   news: INews;
+}
+
+const NewsBanner = ({ news }: Props) => {
    return (
       <>
          {news ? (
@@ -12,7 +15,7 @@ const NewsBanner: FC<{ news: NewsType }> = ({ news }) => {
                   <img src={news.image} alt="News image" />
                </div>
                <div className="newsBanner__body">
-                  <h3 className="newsBanner__title">{news.title.substring(0, 70)}...</h3>
+                  <h3 className="newsBanner__title">{news?.title?.substring(0, 70)}...</h3>
                   <p className="newsBanner__info">
                      {formatTimeAgo(news.published)} · by {news.author.substring(0, 20)}
                   </p>
@@ -21,6 +24,6 @@ const NewsBanner: FC<{ news: NewsType }> = ({ news }) => {
          ) : null}
       </>
    );
-}; 
+};
 
 export default NewsBanner;
