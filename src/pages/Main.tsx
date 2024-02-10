@@ -1,32 +1,25 @@
-import { getCategories, getNews } from "../api/apiNews";
 import NewsList from "../components/NewsList/NewsList";
 import Pagination from "../components/UI/Pagination/Pagination";
 import Categories from "../components/Categories/Categories";
 import Search from "../components/UI/Search/Search";
 import { useDebounce } from "../hooks/useDebounce";
-import { PAGE_SIZE, TOTAL_PAGES } from "../constants/constants";
-import { useFetch } from "../hooks/useFetch";
-import { useFilters } from "../hooks/useFilters";
+import { TOTAL_PAGES } from "../constants/constants";
 import LatestNews from "../components/LatestNews/LatestNews";
 import Slider from "../components/Slider/Slider";
-import { NewsApiResponse, ParamsType } from "../interfaces";
+import { useGetCategoriesQuery, useGetNewsQuery } from "../store/services/newsApi";
+import { useAppDispatch, useAppSelector } from "../store";
+import { getFilters } from "../store/slices/newsSlice";
 
-const Main = () => {
-   const { filters, changeFilter } = useFilters({
-      page_number: 1,
-      page_size: PAGE_SIZE,
-      category: null,
-      keywords: "",
-   });
+const Main = () => { 
+   const dispatch = useAppDispatch();
+
+   const filters = useAppSelector((state) => state.news.filters);
 
    const debouncedKeywords = useDebounce(filters.keywords, 1000);
 
-   const { data: dataCategories } = useFetch(getCategories);
+   const { data: dataCategories } = useGetCategoriesQuery(); 
 
-   const { data, isLoading } = useFetch<NewsApiResponse, ParamsType>(getNews, {
-      ...filters,
-      keywords: debouncedKeywords,
-   });
+   const { data, isLoading } = useGetNewsQuery({ ...filters, keywords: debouncedKeywords })
 
    return (
       <main className="main">
@@ -38,20 +31,20 @@ const Main = () => {
                      <Categories
                         categories={["all", ...dataCategories.categories]}
                         currentCategory={filters.category ? filters.category : "all"}
-                        setCategory={(category: string) => changeFilter("category", category)}
+                        setCategory={(category: string) => dispatch(getFilters({key: "category",value: category}))}
                      />
                   </Slider>
                ) : null}
-               <Search keywords={filters.keywords} setKeywords={(keywords: string) => changeFilter("keywords", keywords)} />
+               <Search keywords={filters.keywords} setKeywords={(keywords: string) => dispatch(getFilters({key: "keywords",value: keywords}))} />
                <Pagination
                   totalPages={TOTAL_PAGES}
-                  setCurrentPage={(pageNumber: number) => changeFilter("page_number", pageNumber)}
+                  setCurrentPage={(pageNumber: number) => dispatch(getFilters({key: "page_number",value: pageNumber}))}
                   currentPage={filters.page_number}
                />
                <NewsList isLoading={isLoading} news={data?.news} />
                <Pagination
                   totalPages={TOTAL_PAGES}
-                  setCurrentPage={(pageNumber: number) => changeFilter("page_number", pageNumber)}
+                  setCurrentPage={(pageNumber: number) => dispatch(getFilters({key: "page_number",value: pageNumber}))}
                   currentPage={filters.page_number}
                />
             </div>
