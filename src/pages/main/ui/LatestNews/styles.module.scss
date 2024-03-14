@@ -1,0 +1,10 @@
+@use "sass:math";
+@import "/src/app/scss/base/mixins.scss";
+
+.section {
+   display: flex;
+   overflow: hidden;
+   box-sizing: border-box;
+   flex-direction: column;
+   gap: toRem(32);
+}
