@@ -1,0 +1,13 @@
+@use "sass:math";
+@import "/src/app/scss/base/mixins.scss";
+
+.search {
+
+   &__input {
+      width: 100%;
+      padding: toRem(10) toRem(16);
+      border: 1px solid #ccc;
+      border-radius: toRem(12);
+      margin-bottom: toRem(15);
+   }
+}
