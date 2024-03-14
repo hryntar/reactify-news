@@ -1,0 +1,35 @@
+@use "sass:math";
+@import "/src/app/scss/base/mixins.scss";
+@import "/src/app/scss/style.scss";
+
+.newsBanner {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   gap: toRem(10);
+   &__img-ibg {
+      padding-bottom: toRem(150);
+      @media (max-width: em(442)) {
+         padding-bottom: toRem(220);
+      }
+   }
+
+   &__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: toRem(10);
+   }
+
+   &__title {
+      @include adaptiveValue("font-size", 20, 18);
+      font-weight: 700;
+   }
+
+   &__info {
+      color: #9b9b9b;
+      padding-bottom: toRem(15);
+      @include adaptiveValue("font-size", 14, 12);
+   }
+}
